@@ -11,8 +11,13 @@ RUN echo "deb [signed-by=/usr/share/keyrings/kubernetes-archive-keyring.gpg] htt
 RUN apt-get update && \
     apt-get install -y kubectl
 
-RUN wget https://github.com/digitalocean/doctl/releases/download/v1.60.0/doctl-1.60.0-linux-amd64.tar.gz
+RUN wget https://github.com/digitalocean/doctl/releases/download/v1.60.0/doctl-1.60.0-linux-amd64.tar.gz && \
+    tar xf doctl-1.60.0-linux-amd64.tar.gz && \
+    rm doctl-1.60.0-linux-amd64.tar.gz && \
+    mv doctl /usr/local/bin
 
-RUN tar xf doctl-1.60.0-linux-amd64.tar.gz
-
-RUN mv doctl /usr/local/bin
+RUN curl -LO https://get.helm.sh/helm-v3.6.0-linux-amd64.tar.gz && \
+    tar -zxvf helm-v3.6.0-linux-amd64.tar.gz && \
+    rm helm-v3.6.0-linux-amd64.tar.gz && \
+    mv linux-amd64/helm /usr/local/bin/helm && \
+    chmod +x /usr/local/bin/helm
